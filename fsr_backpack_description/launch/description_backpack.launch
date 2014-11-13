@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!-- O joint_state_publisher escreve e le por default do tópico
+     /joint_states
+     Se o arm_node estiver a escrever também no joint_states, da conflito pois este inicial
+     envia a posicao a zero.
+     A solução foi dizer para o arm_node publicar em /arm_controler/joint_states, e incluir este tópico
+     aqui no source_list do joint_state_publisher-->
+     
+<launch>
+	 <arg name="gui" default="True" /> 
+  	 <param name="use_gui" value="$(arg gui)"/> 
+  	<param name="robot_description" command="$(find xacro)/xacro.py  '$(find fsr_backpack_description)/urdf/fsr_backpack.urdf.xacro'" />
+	
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+		<param name="publish_frequency" value="100.0" />
+	</node>
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+		 <param name="rate" value="100.0" />
+		 <rosparam param="source_list">["/arm_controller/joint_states","/ptu_d46_controller/joint_states"]</rosparam>
+	</node>
+  
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find fsr_backpack_description)/description.rviz" />
+</launch>

@@ -1,0 +1,336 @@
+<?xml version="1.0"?>
+<!--
+Author: Jose Prado/ISR University of Coimbra
+
+This program contains the description of the FSR Backpack, by the ISR University of Coimbra
+-->
+<robot 
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+    xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+    xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+    xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+    xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+    xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+    xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+    xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+    xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+    xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+    xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics"
+    xmlns:xacro="http://ros.org/wiki/xacro"
+    name="backpack">
+    
+    <xacro:include filename="$(find fsr_backpack_description)/urdf/fsr_backpack_parts/mti.urdf.xacro" />
+   
+	<!-- world axis -->
+	<link name="world">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.001 0.001 0.001" />
+			</geometry>
+		</visual>
+	</link>  
+	<joint name="base_footprint_world" type="fixed">
+		<parent link="world"/>
+		<child link="base_footprint"/>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+	</joint>
+	
+
+	<link name="base_footprint">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.0001 0.0001 0.0001" /> <!-- dimensoes apenas representativas -->
+			</geometry>
+			 <material
+				name="Gray">
+			<color
+			rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+			</material>
+		</visual>
+	</link>
+	
+	<!-- IMU: MTi macro -->
+    <mti parent="base_link" x="0" y="0" z="0.25" rx="0" ry="0" rz="0" />
+
+	<!-- Camera 
+	<link name="cam_pose">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.001 0.001 0.001" />
+			</geometry>
+		</visual>
+	</link>
+	<joint name="cam_joint" type="fixed">
+		<parent link="base_link"/>
+		<child link="cam_pose"/>
+		<origin xyz="0 0 -0.25" rpy="0 1.57 0" />
+	</joint> -->
+	
+    <!-- GPS -->
+	<link name="gps">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.001 0.001 0.001" />
+			</geometry>
+		</visual>
+	</link>
+	<joint name="gps_joint" type="fixed">
+		<parent link="base_link"/>
+		<child link="gps"/>
+		<origin xyz="0 -0.45 0.25" rpy="0 0 0" />
+	</joint>
+
+<!-- Links and Joints (i.e., the robot) -->
+	<link name="base_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.1 0.1 0.1" />
+			</geometry>
+		</visual>
+	</link>
+	
+	<joint name="base_footprint_base_link_joint" type="fixed">
+		<parent link="base_footprint"/>
+		<child link="base_link" />
+		<origin xyz="0 0 1.5" rpy="0 0 0" /> <!-- 1.5m altura do ombro da pessoa  -->
+	</joint>
+	
+	
+	
+	<joint name="arm_base_link_joint" type="fixed">
+		<parent link="base_link"/>
+		<child link="arm_base_link"/>
+		<origin xyz="-0.1 0.20 0.25" rpy="0 0 0" /> <!-- ombro fica a 10cm para frente, 20cm ao lado e 25cm a cima do centro -->
+	</joint>
+	
+	
+	<!-- arm  -->
+	<link name="arm_base_link"> <!-- human shoulder -->
+    <inertial>
+      <origin
+        xyz="0 0 0"  
+        rpy="0 0 0" />
+      <mass
+        value="1.1522" />
+      <inertia
+        ixx="0.011095"
+        ixy="0.0012342"
+        ixz="0.00013298"
+        iyy="0.0047097"
+        iyz="0.00037003"
+        izz="0.013904" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+       <box size="0.001 0.001 0.001" /> <!-- dimensoes apenas representativas -->
+      </geometry>
+      <material
+        name="Gray">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.001 0.001 0.001" /> <!-- dimensoes apenas representativas -->
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_base_link">
+        <material>Gazebo/Grey</material>
+	<selfCollide>false</selfCollide>
+        <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+  
+  
+  <link name="arm_axel_link"> <!-- human shoulder rotation link-->
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.14047" />
+      <inertia
+        ixx="0.00082761"
+        ixy="-1.2806E-12"
+        ixz="5.0183E-11"
+        iyy="1.9163E-05"
+        iyz="1.7051E-06"
+        izz="0.00081808" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+         <box size="0.01 0.01 0.01" /> <!-- dimensoes apenas representativas -->
+      </geometry>
+      <material
+        name="Gray">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+         <box size="0.01 0.01 0.01" /> <!-- dimensoes apenas representativas -->
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_axel_link">
+        <material>Gazebo/Grey</material>
+        <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+  
+  
+  <joint name="arm_axel_joint" type="revolute"> <!-- human shoulder rotation joint-->
+    <origin
+      xyz="0 0 0"
+      rpy="1.5708 2.7207E-18 1.5708" />
+    <parent
+      link="arm_base_link" />
+    <child
+      link="arm_axel_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="75"
+      velocity="2" />
+    <!--<safety_controller
+      soft_upper="1.5"
+      soft_lower="-1.5"
+      k_position="1"
+	k_velocity="0" />-->
+  </joint>
+	
+	 <!-- Up and Down Sholder -->
+	<link name="arm_shoulder_up_down_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" /> <!-- Deslocamento entre a TF e o desenho -->
+			<geometry>
+				<box size="0.01 0.01 0.01" />
+			</geometry>
+			<material
+				name="DarkGray">
+			<color
+				rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+			</material>
+		</visual>
+	</link>
+	
+	<joint name="arm_shoulder_up_down_joint" type="revolute"> <!-- human shoulder up down-->
+    <origin
+      xyz="0 0 0"
+      rpy="0 2.7207E-18 0" />
+    <parent
+      link="arm_axel_link" />
+    <child
+      link="arm_shoulder_up_down_link" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="75"
+      velocity="2" />
+    <!--<safety_controller
+      soft_upper="1.5"
+      soft_lower="-1.5"
+      k_position="1"
+	k_velocity="0" />-->
+  </joint>
+  
+   <!-- Up and Down Cotovelo Elbow -->
+	<link name="arm_elbow_up_down_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" /> <!-- Deslocamento entre a TF e o desenho -->
+			<geometry>
+				<box size="0.01 0.01 0.01" />
+			</geometry>
+			<material
+				name="DarkGray">
+			<color
+				rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+			</material>
+		</visual>
+	</link>
+	
+	<joint name="arm_elbow_up_down_joint" type="revolute"> <!-- human elbow up down-->
+    <origin
+      xyz="0 -0.30 0"
+      rpy="0 2.7207E-18 0" />
+    <parent
+      link="arm_shoulder_up_down_link" />
+    <child 
+      link="arm_elbow_up_down_link" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="75"
+      velocity="2" />
+    <!--<safety_controller
+      soft_upper="1.5"
+      soft_lower="-1.5"
+      k_position="1"
+	k_velocity="0" />-->
+  </joint>
+  
+	<!-- Metal Detector Antena -->
+	<link name="middle_coil">
+		<visual>
+			<origin xyz="0.1 -0.1 0" rpy="-0.37 3.1415 0" /> <!-- Deslocamento entre a TF e o desenho -->
+			<!--
+			<geometry>
+				<box size="0.1 0.01 0.1" />
+			</geometry>
+			<material
+				name="DarkGray">
+			<color
+				rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+			</material> -->
+			
+			 <geometry>
+				<mesh filename="package://fsr_backpack_description/models/Schiebel.STL" scale=".0008 .0008 .0008"/>
+            </geometry>
+            <material name="DarkGray" />
+            
+		</visual>
+	</link>
+	
+	<joint name="metal_detector_arm_joint" type="fixed">
+		<parent link="arm_elbow_up_down_link"/>
+		<child link="middle_coil" />
+		<origin xyz="0 -1.3 -0.5" rpy="0 0 0" /> <!-- TF: distancia entre ombro e coil 1.3m abaixo e 0.5m pra frente -->
+	</joint>
+	
+	
+	<!-- Liga a joint a um "actuator name" -->
+	<transmission name="sweep">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arm_axel_joint"/>
+    <actuator name="sweep_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+</robot>

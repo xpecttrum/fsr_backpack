@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "fsr_backpack_arm_node")
+set(fsr_backpack_arm_node_MAINTAINER "Jose Prado <xpecttrum@gmail.com>")
+set(fsr_backpack_arm_node_DEPRECATED "")
+set(fsr_backpack_arm_node_VERSION "0.0.0")
+set(fsr_backpack_arm_node_BUILD_DEPENDS "roscpp" "sensor_msgs" "angles" "cereal_port" "control_msgs" "pluginlib" "hardware_interface" "controller_manager" "cmake_modules")
+set(fsr_backpack_arm_node_RUN_DEPENDS "roscpp" "sensor_msgs" "angles" "control_msgs" "pluginlib" "hardware_interface" "controller_manager" "cmake_modules")
+set(fsr_backpack_arm_node_BUILDTOOL_DEPENDS "catkin")

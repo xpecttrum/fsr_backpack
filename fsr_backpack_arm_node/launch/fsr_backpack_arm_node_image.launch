@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+	
+	<!-- USB cam -->
+	
+	<node name="usb_cam_node" pkg="usb_cam" type="usb_cam_node" >
+		 <param name="pixel_format" value="yuyv" />  <!-- Philips youtube cam -->
+		<!-- <param name="pixel_format" value="mjpeg" /> --> <!-- Microsoft cam -->
+		<param name="video_device" value="/dev/video1" />
+	    <remap from="/usb_cam_node/image_raw" to="/camera/image"/> 
+	</node>
+	
+	<node name="rqt_image_view" pkg="rqt_image_view" type="rqt_image_view" >
+	</node> 
+	
+	<!-- Converte imagem para formato gray-scale e dimensoes requeridas pelo svo-ros (Visual Odometry) -->
+	<node name="fsr_backpack_im2gs_node" pkg="fsr_backpack_im2gs" type="fsr_backpack_im2gs_node" >
+	</node> 
+	
+
+
+
+
+</launch>
