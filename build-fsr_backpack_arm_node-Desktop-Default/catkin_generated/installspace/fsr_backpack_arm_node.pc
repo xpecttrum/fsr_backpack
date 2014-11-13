@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: fsr_backpack_arm_node
-Description: Description of fsr_backpack_arm_node
-Version: 0.0.0
-Cflags: 
-Libs: -L/usr/local/lib 
-Requires: cmake_modules
