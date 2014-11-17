@@ -96,17 +96,12 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        gps:
+        gps_antenna:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         middle_coil:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        world:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -136,11 +131,9 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
-        gps:
+        gps_antenna:
           Value: true
         middle_coil:
-          Value: true
-        world:
           Value: true
       Marker Scale: 0.3
       Name: TF
@@ -148,19 +141,18 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        world:
-          base_footprint:
-            base_link:
-              arm_base_link:
-                arm_axel_link:
-                  arm_shoulder_up_down_link:
-                    arm_elbow_up_down_link:
-                      middle_coil:
-                        {}
-              base_imu:
-                {}
-              gps:
-                {}
+        base_footprint:
+          base_link:
+            arm_base_link:
+              arm_axel_link:
+                arm_shoulder_up_down_link:
+                  arm_elbow_up_down_link:
+                    middle_coil:
+                      {}
+            base_imu:
+              {}
+            gps_antenna:
+              {}
       Update Interval: 0
       Value: true
   Enabled: true
@@ -187,22 +179,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.32308
+      Distance: 3.20807
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.464695
-        Y: -0.331814
-        Z: 0.638086
+        X: -0.49307
+        Y: 0.17136
+        Z: 1.1838
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.389797
+      Pitch: 0.654798
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.88
+      Yaw: 2.03817
     Saved: ~
 Window Geometry:
   Displays:

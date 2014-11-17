@@ -45,8 +45,7 @@ This program contains the description of the FSR Backpack, by the ISR University
 			<geometry>
 				<box size="0.0001 0.0001 0.0001" /> <!-- dimensoes apenas representativas -->
 			</geometry>
-			 <material
-				name="Gray">
+			 <material name="Gray">
 			<color
 			rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
 			</material>
@@ -56,10 +55,13 @@ This program contains the description of the FSR Backpack, by the ISR University
 	<!-- Links and Joints (i.e., the robot) -->
 	<link name="base_link">
 		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0" />
-			<geometry>
-				<box size="0.1 0.1 0.1" />
-			</geometry>
+			<origin xyz="-0.20 0.18 -0.09" rpy="1.57 0 0" /> <!-- deslocamento entre desenho e TF (x = frente traz, y= lados, z=altura)-->
+			 <geometry>
+				<mesh filename="package://fsr_backpack_description/models/mochila.STL" scale=".0008 .0008 .0008"/>
+             </geometry>
+             <material name="mochila_material">
+				<color rgba="0.78 0.78 0.99 1" />
+			 </material>
 		</visual>
 	</link>
 	
@@ -73,10 +75,10 @@ This program contains the description of the FSR Backpack, by the ISR University
 	
 	
 	<!-- IMU: MTi macro -->
-    <mti parent="base_link" x="0" y="0" z="0.25" rx="0" ry="0" rz="0" />
+    <mti parent="base_link" x="0.05" y="0" z="0.35" rx="3.14159" ry="0" rz="0" />
 
     <!-- GPS macro -->
-    <gps_antenna parent="base_link" x="0" y="-0.17" z="0.0" rx="0" ry="0" rz="0" />
+    <gps_antenna parent="base_link" x="0" y="0.0" z="0.40" rx="0" ry="0" rz="0" />
 
 	<!-- Camera 
 	<link name="cam_pose">
