@@ -78,7 +78,7 @@ This program contains the description of the FSR Backpack, by the ISR University
     <mti parent="base_link" x="0.10" y="0" z="0.39" rx="3.14159" ry="0" rz="0" />
 
     <!-- GPS macro -->
-    <gps_antenna parent="base_link" x="0.10" y="0.0" z="0.42" rx="0" ry="0" rz="0" />
+    <gps_antenna parent="base_link" x="0.10" y="0.0" z="0.43" rx="0" ry="0" rz="0" />
 
 	<!-- Camera 
 	<link name="cam_pose">
@@ -94,7 +94,25 @@ This program contains the description of the FSR Backpack, by the ISR University
 		<child link="cam_pose"/>
 		<origin xyz="0 0 -0.25" rpy="0 1.57 0" />
 	</joint> -->
-		
+	
+  
+	 <!-- <link name="gps_antenna">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.001 0.001 0.001" />
+			</geometry>
+		</visual>
+	</link>
+	<joint name="gps_joint" type="fixed">
+		<parent link="base_link"/>
+		<child link="gps_antenna"/>
+		<origin xyz="0 -0.45 0.25" rpy="0 0 0" />
+	</joint> -->
+
+
+	
+	
 	
 	<joint name="arm_base_link_joint" type="fixed">
 		<parent link="base_link"/>
@@ -287,12 +305,10 @@ This program contains the description of the FSR Backpack, by the ISR University
 	k_velocity="0" />-->
   </joint>
   
-  
-  
-  <!-- Metal Detector Base -->
-	<link name="base_of_coil">
+	<!-- Metal Detector Antena -->
+	<link name="middle_coil">
 		<visual>
-			<origin xyz="0.13 -0.13 0" rpy="-0.37 3.1415 0" /> <!-- Deslocamento entre a TF e o desenho -->
+			<origin xyz="0.13 -0.1 0" rpy="-0.37 3.1415 0" /> <!-- Deslocamento entre a TF e o desenho -->
 			 <geometry>
 				<mesh filename="package://fsr_backpack_description/models/Schiebel.STL" scale=".001 .001 .001"/>
             </geometry>
@@ -305,30 +321,8 @@ This program contains the description of the FSR Backpack, by the ISR University
 	
 	<joint name="metal_detector_arm_joint" type="fixed">
 		<parent link="arm_elbow_up_down_link"/>
-		<child link="base_of_coil" />
-		<origin xyz="0 -1.30 -0.5" rpy="0 0 0" /> <!-- TF: distancia entre cotovelo e coil 1.3m abaixo e 0.5m pra frente -->
-	</joint>
-  
-  
-	
-	<!-- Metal Detector Antena -->
-	<link name="middle_coil">
-		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0" /> <!-- Deslocamento entre a TF e o desenho -->
-			<geometry>
-				<box size="0.01 0.01 0.01" />
-			</geometry>
-            <material name="Red">
-            <color
-				rgba="1 0 0 1" />
-			</material>  
-		</visual>
-	</link>
-	
-	<joint name="metal_detector_coil_joint" type="fixed">
-		<parent link="base_of_coil"/>
 		<child link="middle_coil" />
-		<origin xyz="0 0 -0.08" rpy="0 0 0" /> <!-- TF: distancia entre base do detector e centro da coil -->
+		<origin xyz="0 -1.3 -0.5" rpy="0 0 0" /> <!-- TF: distancia entre cotovelo e coil 1.3m abaixo e 0.5m pra frente -->
 	</joint>
 	
 	

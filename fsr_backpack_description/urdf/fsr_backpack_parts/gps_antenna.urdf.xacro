@@ -66,7 +66,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     			<collision>
       				<origin xyz="-0.035 0 0" rpy="1.5708 0 0" />
       				<geometry>
-					<mesh filename="package://fsr_husky_description/models/fsr_husky_parts/gps_antenna.stl" />
+					<mesh filename="package://fsr_backpack_description/models/gps_antenna.stl" />
      			 	</geometry>
     			</collision>
   		</link>

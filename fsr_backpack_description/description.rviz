@@ -96,6 +96,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        base_of_coil:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         gps_antenna:
           Alpha: 1
           Show Axes: false
@@ -131,6 +136,8 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
+        base_of_coil:
+          Value: true
         gps_antenna:
           Value: true
         middle_coil:
@@ -147,8 +154,9 @@ Visualization Manager:
               arm_axel_link:
                 arm_shoulder_up_down_link:
                   arm_elbow_up_down_link:
-                    middle_coil:
-                      {}
+                    base_of_coil:
+                      middle_coil:
+                        {}
             base_imu:
               {}
             gps_antenna:
@@ -179,22 +187,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.20807
+      Distance: 2.75991
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.49307
-        Y: 0.17136
-        Z: 1.1838
+        X: -0.39402
+        Y: -0.484852
+        Z: 0.791237
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.654798
+      Pitch: -0.190202
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.03817
+      Yaw: 1.60818
     Saved: ~
 Window Geometry:
   Displays:
