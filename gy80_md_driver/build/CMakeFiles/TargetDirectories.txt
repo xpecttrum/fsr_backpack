@@ -1,0 +1,17 @@
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/ROSBUILD_genmsg_cpp.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/ROSBUILD_genmsg_lisp.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/ROSBUILD_gensrv_cpp.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/clean-test-results.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/rosbuild_precompile.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/rosbuild_premsgsrvgen.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/rospack_genmsg.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/rospack_genmsg_libexe.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/rospack_gensrv.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/set_coils_zero.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/test.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/test-future.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/test-results.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/test-results-run.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/tests.dir
+/home/xpecttrum/ROSDevelopStacks/metal_detector_drivers/vallon_md/build/CMakeFiles/vallon_md_node.dir

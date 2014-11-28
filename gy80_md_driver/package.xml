@@ -1,0 +1,49 @@
+<package>
+  <name>gy80_md_driver</name>
+  <version>1.0.0</version>
+  <description>
+		Hardware driver for the gy-80 connected via i2c and the schiebel_md, both connected to a TIVA texas board. Data comes via serial port.
+		Data Format is:
+		1 byte header - char '$'
+		2 bytes metal detector amount of metal - unsigned short
+		2 bytes magnetometer X - signed short - small endian
+		2 bytes magnetometer Z - signed short - small endian //yes Z and Y are inverted for mag only
+		2 bytes magnetometer Y - signed short - small endian
+		2 bytes accelerometer X - signed short - small endian
+		2 bytes accelerometer Y - signed short - small endian
+		2 bytes accelerometer Z - signed short - small endian
+		2 bytes gyros X - signed short - small endian
+		2 bytes gyros Y - signed short - small endian
+		2 bytes gyros Z - signed short - small endian
+		4 bytes roll - float
+		4 bytes pitch - float
+		4 bytes yaw - float //yaw optimizado usando roll e pitch
+		4 bytes yawU - float //yaw basico, so funciona bem no plano
+		1 byte footer - char '\n'
+</description>
+  <maintainer email="xpecttrum@gmail.com">Jose Prado</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/schiebel_md_driver</url>
+
+   <author>Jose Prado</author>
+  
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>cereal_port</build_depend>
+  <build_depend>metal_detector_msgs</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>cereal_port</run_depend>
+  <run_depend>metal_detector_msgs</run_depend>
+
+</package>
+
+

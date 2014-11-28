@@ -14,6 +14,7 @@
 #include <tf_conversions/tf_eigen.h>
 
 ros::Subscriber imu_sub;
+std::string imu_topic_name;
 
 class FSRBackpackArm
 {
@@ -95,7 +96,7 @@ FSRBackpackArm::FSRBackpackArm(ros::NodeHandle &nh){ //Construtor
     //<remap from="joint_states" to="/arm_controller/joint_states"/>
     m_joint_state_pub_ = nh.advertise<sensor_msgs::JointState>("/arm_controller/joint_states", 200);
 
-    imu_sub = nh.subscribe<sensor_msgs::Imu>("/imu/data", 10, &FSRBackpackArm::imuCallback,this);
+    imu_sub = nh.subscribe<sensor_msgs::Imu>(imu_topic_name.c_str(), 10, &FSRBackpackArm::imuCallback,this);
 
    
 }
@@ -291,6 +292,16 @@ int main(int argc, char** argv)
     ros::NodeHandle pn("~");
 
     ROS_INFO("FSR Backpack Arm - collect arm position and change TFs");
+
+//<param name="imu_topic" value="/gy80/data" />
+ // Get parameters
+   if(n.getParam("/imu_topic_name", imu_topic_name)){
+		fprintf(stderr,"\nParameter imu_topic_name was get as %s\n\n",imu_topic_name.c_str());
+   }else{
+	    // Default value version
+	    n.param<std::string>("imu_topic_name", imu_topic_name, "/gy80/data"); 
+		fprintf(stderr,"\nParameter imu_topic_name was set for default as %s\n\n",imu_topic_name.c_str());
+   }
 
     FSRBackpackArm arm(n);
     arm.init(pn);

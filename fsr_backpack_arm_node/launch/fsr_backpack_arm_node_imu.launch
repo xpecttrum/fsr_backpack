@@ -4,34 +4,20 @@
 	<!-- Mine Detection Arm -->
  <node type="fsr_backpack_arm_node" pkg="fsr_backpack_arm_node" name="fsr_backpack_arm_node" output="screen">
 	   <param name="joint_state_rate" value="50.0" />
+	   <param name="imu_topic_name" value="/gy80/data" />
  </node> 
  
-	<!-- XSens MTi old IMU -->
-	<!-- rosrun xsens_driver mtnode.py -->
+ 	<!-- Gy-80 IMU : publica dados em /gy80/data -->
+ 	<node name="gy80_md_driver_node" pkg="gy80_md_driver" type="gy80_md_driver_node" >
+	</node>
+ 
+	<!-- XSens MTi old IMU : publica dados em /imu/data 
 	<node name="xsens_mti_100" pkg="xsens_driver" type="mtnode.py" >
 		<param name="device" value="/dev/ttyUSB0" />
 		<param name="baudrate" value="115200" />
 		<param name="frame_id" value="arm_imu" />
-	</node>
-
-
- 
-	<!-- PointGrey Flea3 GigE Cameras 
-	<group if="$(arg use_cameras)">
-		<node name="left_camera" pkg="pgr_gige_camera_driver" type="pgr_gige_camera_node">
-			<param name="ip_address" value="192.168.4.11" />
-			<param name="frame_id" value="left_camera" />
-		</node>
-		<node name="right_camera" pkg="pgr_gige_camera_driver" type="pgr_gige_camera_node" >
-			<param name="ip_address" value="192.168.4.12" />
-			<param name="frame_id" value="right_camera" />
-		</node>
-	</group>
-
-	 Visual Odometry 
-	<node name="stereo_odometry" pkg="viso2_ros" type="stereo_odometer" if="$(arg run_stereo_odometry)">
-		<param name="odom_frame_id" value="odom" />
 	</node> -->
 
+	
 	
 </launch>
