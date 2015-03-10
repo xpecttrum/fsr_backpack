@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+	
+	<!-- Mine Detection Arm -->
+ <node type="fsr_backpack_odometry_node" pkg="fsr_backpack_odometry" name="fsr_backpack_odometry" output="screen">
+ </node> 
+ 
+	
+</launch>

@@ -16,6 +16,8 @@
 ros::Subscriber imu_sub;
 std::string imu_topic_name;
 
+# define M_PI           3.14159265358979323846  /* pi */
+
 class FSRBackpackArm
 {
     public:
@@ -60,6 +62,9 @@ class FSRBackpackArm
 
         double lift_;
         double sweep_;
+        double arm_orientation_bias;
+        bool flag_bias;
+        
         double lift_speed_;
         double sweep_speed_;
         double min_lift_;
@@ -97,7 +102,8 @@ FSRBackpackArm::FSRBackpackArm(ros::NodeHandle &nh){ //Construtor
     m_joint_state_pub_ = nh.advertise<sensor_msgs::JointState>("/arm_controller/joint_states", 200);
 
     imu_sub = nh.subscribe<sensor_msgs::Imu>(imu_topic_name.c_str(), 10, &FSRBackpackArm::imuCallback,this);
-
+	
+	
    
 }
 
@@ -127,18 +133,21 @@ void FSRBackpackArm::init(ros::NodeHandle &pnh){
     linear_position = 0.0;
     rotation_position = 0.0;
 
- start_time_ = ros::Time::now();
+    start_time_ = ros::Time::now();
 
-    pnh.param("min_lift", min_lift_, -0.25);
-    pnh.param("max_lift", max_lift_, 0.25);
-    pnh.param("max_lift_speed", max_lift_speed_, 1.0);
+    arm_orientation_bias = 0.0;
+    flag_bias = false;
+    
+    //pnh.param("min_lift", min_lift_, -0.25);
+    //pnh.param("max_lift", max_lift_, 0.25);
+    //pnh.param("max_lift_speed", max_lift_speed_, 1.0);
 
-    pnh.param("min_sweep", min_sweep_, -1.5);
-    pnh.param("max_sweep", max_sweep_, 1.5);
-    pnh.param("max_sweep_speed", max_sweep_speed_, 1.0);
+    pnh.param("min_sweep", min_sweep_, -M_PI);
+    pnh.param("max_sweep", max_sweep_, M_PI);
+    pnh.param("max_sweep_speed", max_sweep_speed_, 10.0);
 	max_sweep_steps_ = 3;
 
-    pnh.param("lift_tolerance", lift_tolerance_, 0.05);
+   // pnh.param("lift_tolerance", lift_tolerance_, 0.05);
     pnh.param("sweep_tolerance", sweep_tolerance_, 0.05);
 
     double time_tolerance;
@@ -181,27 +190,12 @@ void FSRBackpackArm::jointStateSpinner()
         //aqui tenho que enviar somente as juntas que existem, senao nao funciona - fazer rostopic echo /joint_states para verificar
         sensor_msgs::JointState msg;
 
-      /*  msg.header.stamp = ros::Time::now();
-        msg.name.push_back(lift_joint_);
-        msg.position.push_back(lift_);
-        msg.velocity.push_back(lift_speed_);
-        msg.effort.push_back(0.0); */
-        
+    
         msg.name.push_back(sweep_joint_);
         msg.position.push_back(sweep_);
         msg.velocity.push_back(sweep_speed_);
         msg.effort.push_back(0.0);
         
-        /*msg.name.push_back("lower_arm_joint");
-        msg.position.push_back(lift_);
-        msg.velocity.push_back(lift_speed_);
-        msg.effort.push_back(0.0);
-        
-        msg.name.push_back("metal_detector_arm_joint");
-        msg.position.push_back(-1.0*lift_);
-        msg.velocity.push_back(-1.0*lift_speed_);
-        msg.effort.push_back(0.0);
-*/
 
         //fprintf(stderr,"\nm_joint_state_pub_");
         m_joint_state_pub_.publish(msg);
@@ -224,15 +218,43 @@ void FSRBackpackArm::spinOnce()
     //fprintf(stderr,"\nspinOnce");
 
     ros::Duration delta_t = ros::Time::now() - last_update_;
-    lift_ = -1.0*(linear_position*(max_lift_ - min_lift_)/4048 + min_lift_);
-    lift_speed_ = (lift_ - last_lift_)/delta_t.toSec();
+   // lift_ = -1.0*(linear_position*(max_lift_ - min_lift_)/4048 + min_lift_);
+   // lift_speed_ = (lift_ - last_lift_)/delta_t.toSec();
     
     delta_t = ros::Time::now() - last_update_;
     //sweep_ = rotation_position*(max_sweep_ - min_sweep_)/max_sweep_steps_ + min_sweep_;
     sweep_speed_ = (sweep_ - last_sweep_)/delta_t.toSec();
 
-	sweep_ = -rotation_position;
-    //fprintf(stderr,"\n sweep %lf",sweep_);
+//*************************
+	sweep_ = -rotation_position + arm_orientation_bias; //acrecentar o bias vai fazer o valor ultrapassar pi (180)
+    //fprintf(stderr,"\n sweep %lf",sweep_);    
+    //Ajustar possiveis erros por causa do bias perto do norte (imu)
+    if(sweep_ < -M_PI){
+		//fprintf(stderr,"sweep_ < -PI");
+		sweep_ = M_PI + (sweep_ + M_PI);
+	}else if(sweep_ > M_PI){
+		//fprintf(stderr,"sweep_ > PI");
+		sweep_ = -M_PI + (sweep_ - M_PI);
+	}
+//***************************
+    
+    //5 segundos apos o inicio, zerar o braço para a frente, criando um bias no sweep
+    ros::Time agora_tempo = ros::Time::now();
+	if(agora_tempo >= start_time_ + ros::Duration(9) && agora_tempo <= start_time_ + ros::Duration(10) && flag_bias == false){
+		arm_orientation_bias = 0.0-sweep_;	
+		fprintf(stderr,"Braco p frente - arm_orientation_bias=%f",arm_orientation_bias);	
+		flag_bias = true;
+		
+		if(arm_orientation_bias == 0){ //ou vc está a apontar exatamente p norte, ou o imu não arrancou propriamente (mais provavel)
+			fprintf(stderr,"\n\nERROR");	
+			fprintf(stderr,"\n\nIMU não esta a enviar dados (sugestao: faça reset a texas board)\n");	
+			exit(1);
+		}
+				
+	}else{
+		//fprintf(stderr,"%f ",sweep_);
+	}
+    
   
     // Publish Position & Speed
     control_msgs::JointTrajectoryControllerState joint_state;

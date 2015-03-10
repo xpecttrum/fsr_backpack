@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+	
+	<!-- Mine Detection Arm 
+ <node type="fsr_backpack_arm_node" pkg="fsr_backpack_arm_node" name="fsr_backpack_arm_node" output="screen">
+	   <param name="joint_state_rate" value="50.0" />
+	   <param name="imu_topic_name" value="/gy80/data" />
+ </node> -->
+ 
+ 	<!-- Gy-80 IMU : publica dados em /gy80/data -->
+ 	<node name="gy80_md_driver_node" pkg="gy80_md_driver" type="gy80_md_driver_node" >
+	</node>
+ 
+	<!-- XSens MTi old IMU : publica dados em /imu/data 
+	<node name="xsens_mti_100" pkg="xsens_driver" type="mtnode.py" >
+		<param name="device" value="/dev/ttyUSB0" />
+		<param name="baudrate" value="115200" />
+		<param name="frame_id" value="arm_imu" />
+	</node> -->
+
+	
+	
+</launch>

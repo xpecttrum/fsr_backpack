@@ -1,0 +1,6 @@
+<launch>
+	<!-- The metal detector frame -->
+	<node pkg="fsr_backpack_data_viewer" type="metal_detector_viewer_node" respawn="false" name="metal_detector_viewer_node" output="screen">
+	</node>
+
+</launch>

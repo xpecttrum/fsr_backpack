@@ -9,8 +9,9 @@ Panels:
         - /RobotModel1
         - /TF1
         - /TF1/Frames1
+        - /PointCloud1
       Splitter Ratio: 0.697039
-    Tree Height: 670
+    Tree Height: 686
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -29,7 +30,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: PointCloud
 Visualization Manager:
   Class: ""
   Displays:
@@ -96,17 +97,17 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        base_of_coil:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         gps_antenna:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        middle_coil:
+        metal_detector:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        metal_detector_middle_coil:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -136,11 +137,13 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
-        base_of_coil:
-          Value: true
         gps_antenna:
           Value: true
-        middle_coil:
+        metal_detector:
+          Value: true
+        metal_detector_middle_coil:
+          Value: true
+        odom:
           Value: true
       Marker Scale: 0.3
       Name: TF
@@ -148,20 +151,50 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        base_footprint:
-          base_link:
-            arm_base_link:
-              arm_axel_link:
-                arm_shoulder_up_down_link:
-                  arm_elbow_up_down_link:
-                    base_of_coil:
-                      middle_coil:
-                        {}
-            base_imu:
-              {}
-            gps_antenna:
-              {}
+        odom:
+          base_footprint:
+            base_link:
+              arm_base_link:
+                arm_axel_link:
+                  arm_shoulder_up_down_link:
+                    arm_elbow_up_down_link:
+                      metal_detector:
+                        metal_detector_middle_coil:
+                          {}
+              base_imu:
+                {}
+              gps_antenna:
+                {}
       Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 15
+        Min Value: -1
+        Value: true
+      Axis: Z
+      Channel Name: z
+      Class: rviz/PointCloud
+      Color: 255; 255; 255
+      Color Transformer: AxisColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: true
+      Max Color: 255; 255; 255
+      Max Intensity: -72
+      Min Color: 0; 0; 0
+      Min Intensity: -72
+      Name: PointCloud
+      Position Transformer: XYZ
+      Queue Size: 0
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.2
+      Style: Flat Squares
+      Topic: /raw_points
+      Use Fixed Frame: true
+      Use rainbow: true
       Value: true
   Enabled: true
   Global Options:
@@ -186,23 +219,20 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 2.75991
+      Angle: 0
+      Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
-      Focal Point:
-        X: -0.39402
-        Y: -0.484852
-        Z: 0.791237
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: -0.190202
+      Scale: 165.14
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 1.60818
+      Value: TopDownOrtho (rviz)
+      X: -0.259671
+      Y: -0.0251842
     Saved: ~
 Window Geometry:
   Displays:
@@ -210,7 +240,7 @@ Window Geometry:
   Height: 976
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001d20000032ffc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006a01000005fb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc000000380000032f000000de00fffffffa000000010100000002fb0000000a0049006d00610067006502000000eb0000018a0000030d00000285fb000000100044006900730070006c00610079007301000000000000013c0000010001000005fb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d00610067006502000002880000014c000002fe00000271000000010000010f0000032ffc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007301000000380000032f000000b601000005fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000780000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000061500000044fc0100000002fb0000000800540069006d00650100000000000006150000034901000005fb0000000800540069006d006501000000000000045000000000000000000000032e0000032f00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001d200000339fc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006901000005fb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc0000003300000339000000d800fffffffa000000010100000002fb0000000a0049006d00610067006502000000eb0000018a0000030d00000285fb000000100044006900730070006c00610079007301000000000000013c000000d101000005fb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d00610067006502000002880000014c000002fe00000271000000010000010f00000339fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003300000339000000ab01000005fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000780000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000061500000044fc0100000002fb0000000800540069006d00650100000000000006150000027401000005fb0000000800540069006d006501000000000000045000000000000000000000032e0000033900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:

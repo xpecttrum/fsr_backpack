@@ -1,0 +1,25 @@
+<launch>
+	<!-- The metal detector frame -->
+	<node pkg="fsr_husky_data_viewer" type="metal_detector_viewer_node" respawn="false" name="metal_detector_viewer_node" output="screen">
+	</node>
+
+	<!-- The mine mapping frame -->
+	<node pkg="mine_mapping" type="mine_mapping_node" respawn="false" name="mine_mapping" output="screen">
+	</node>
+
+	<!-- The metal virtual cloud - convert mines -->
+	<rosparam param="mine_z_offset">100</rosparam>
+	<node pkg="fsr_husky_convert_mines_rviz" type="fsr_husky_convert_mines_rviz_node" respawn="false" name="fsr_husky_convert_mines_rviz" output="screen">
+	</node>
+
+
+
+	<!-- The metal detector frame 
+	<node pkg="fsr_husky_convert_mines_rviz" type=" fsr_husky_mines_to_text_node" respawn="false" name=" fsr_husky_mines_to_text" output="screen">
+	</node> -->
+
+	<!-- The metal detector frame 
+	<node pkg="fsr_husky_convert_mines_rviz" type=" fsr_husky_mine_sound_node" respawn="false" name=" fsr_husky_mine_sound" output="screen">
+	</node> -->
+
+</launch>
